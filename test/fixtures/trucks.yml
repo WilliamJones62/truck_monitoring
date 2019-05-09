@@ -1,0 +1,35 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  truck_id: MyString
+  type: 
+  video_status: MyString
+  temp_status: MyString
+  camera1: false
+  camera2: false
+  camera3: false
+  dvr: false
+  acquired: 2019-05-07
+  disposed: 2019-05-07
+  install: 2019-05-07
+  deinstall: 2019-05-07
+  install_company: MyString
+  location: MyString
+  notes: MyText
+
+two:
+  truck_id: MyString
+  type: 
+  video_status: MyString
+  temp_status: MyString
+  camera1: false
+  camera2: false
+  camera3: false
+  dvr: false
+  acquired: 2019-05-07
+  disposed: 2019-05-07
+  install: 2019-05-07
+  deinstall: 2019-05-07
+  install_company: MyString
+  location: MyString
+  notes: MyText

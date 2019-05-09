@@ -1,0 +1,144 @@
+body {
+  background-color: #fff;
+  color: #333;
+  margin: 33px;
+  font-family: verdana, arial, helvetica, sans-serif;
+  font-size: 13px;
+  line-height: 18px;
+}
+
+p, ol, ul, td {
+  font-family: verdana, arial, helvetica, sans-serif;
+  font-size: 13px;
+  line-height: 18px;
+}
+
+pre {
+  background-color: #eee;
+  padding: 10px;
+  font-size: 11px;
+}
+
+a:link, a:visited {
+    background-color: white;
+    color: black;
+    border: 2px solid black;
+    border-radius: 4px;
+    padding: 5px 5px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+}
+
+a:hover, a:active {
+    background-color: black;
+    color: white;
+    box-shadow: 5px 10px 8px #888888;
+}
+
+table, th, td {
+    border: 0px solid black;
+    border-collapse: collapse;
+}
+
+th, td {
+  padding: 5px;
+  text-align: left;
+}
+
+th{
+  text-align: left;
+  background-color: black;
+  color: white;
+}
+
+tr:nth-child(even){
+  background-color: #d6d6d6;
+}
+
+div {
+  &.field, &.actions {
+    margin-bottom: 10px;
+  }
+}
+
+.title {
+  text-align: center;
+}
+
+.primary-logo {
+  margin: 0;
+  width: 8.12em;
+  height: 4.7em;
+  float: left;
+  position: relative;
+  background: image-url("/assets/DArtagnan_Logo_2015_CMYK_mini.jpg");
+}
+
+#notice {
+  color: green;
+}
+
+#flash_notice {
+  color: green;
+}
+
+#flash_alert {
+  color: rgb(255,128,0);
+}
+
+#flash_error {
+  color: rgb(255,153,153);
+}
+
+.field_with_errors {
+  padding: 2px;
+  background-color: red;
+  display: table;
+}
+
+#error_explanation {
+  width: 450px;
+  border: 2px solid red;
+  padding: 7px 7px 0;
+  margin-bottom: 20px;
+  background-color: #f0f0f0;
+
+  h2 {
+    text-align: left;
+    font-weight: bold;
+    padding: 5px 5px 5px 15px;
+    font-size: 12px;
+    margin: -7px -7px 0;
+    background-color: #c00;
+    color: #fff;
+  }
+
+  ul li {
+    font-size: 12px;
+    list-style: square;
+  }
+}
+
+label {
+  display: block;
+}
+
+#althead {
+  text-align: left;
+  background-color: black;
+  color: white;
+}
+
+#navbar span {
+  list-style-type: none;
+  margin-right: 3em;
+  padding: 0;
+  overflow: hidden;
+  float: right;
+  display: block;
+  color: black;
+  text-align: center;
+  padding: 1em 1em 1em 0em;
+  text-decoration: none;
+}

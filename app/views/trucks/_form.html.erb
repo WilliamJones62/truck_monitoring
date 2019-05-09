@@ -1,0 +1,88 @@
+<%= form_with(model: truck, local: true) do |form| %>
+  <% if truck.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(truck.errors.count, "error") %> prohibited this truck from being saved:</h2>
+
+      <ul>
+      <% truck.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <table>
+    <thead>
+      <tr>
+        <th> <%= form.label :truck_id %> </th>
+        <th> <%= form.label :vehicle_type %> </th>
+        <th> <%= form.label :acquired %> </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td> <%= form.text_field :truck_id  %> </td>
+        <td> <%= form.select :vehicle_type, @type, {}, {:value => params[:trucks_vehicle_type]} %> </td>
+        <td> <%= form.date_field :acquired %> </td>
+      </tr>
+    </tbody>
+  </table>
+  <table>
+    <thead>
+      <tr>
+        <th> <%= form.label :video_status %> </th>
+        <th> <%= form.label :camera1, "In cab camera" %> </th>
+        <th> <%= form.label :camera2, "Rear camera" %> </th>
+        <th> <%= form.label :camera3, "Passenger side camera" %> </th>
+        <th> <%= form.label :dvr, "DVR" %> </th>
+        <th> <%= form.label :temp_status %> </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td> <%= form.select :video_status, @status, {}, {:value => params[:trucks_video_status]} %> </td>
+        <td> <%= form.check_box :camera1 %> </td>
+        <td> <%= form.check_box :camera2 %> </td>
+        <td> <%= form.check_box :camera3 %> </td>
+        <td> <%= form.check_box :dvr %> </td>
+        <td> <%= form.select :temp_status, @status, {}, {:value => params[:trucks_temp_status]} %> </td>
+      </tr>
+    </tbody>
+  </table>
+  <table>
+    <thead>
+      <tr>
+        <th> <%= form.label :install_company %> </th>
+        <th> <%= form.label :location %> </th>
+        <th> <%= form.label :install %> </th>
+        <th> <%= form.label :notes %> </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td> <%= form.text_field :install_company  %> </td>
+        <td> <%= form.text_field :location  %> </td>
+        <td> <%= form.date_field :install %> </td>
+        <td> <%= form.text_area :notes %> </td>
+      </tr>
+    </tbody>
+  </table>
+  <table>
+    <thead>
+      <tr>
+        <th> <%= form.label :deinstall %> </th>
+        <th> <%= form.label :disposed %> </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td> <%= form.date_field :deinstall %> </td>
+        <td> <%= form.date_field :disposed %> </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

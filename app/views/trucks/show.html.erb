@@ -1,0 +1,76 @@
+<p id="notice"><%= notice %></p>
+<h1>Showing Truck</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Truck ID</th>
+      <th>Vehicle type</th>
+      <th>Acquired</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td> <%= @truck.truck_id  %> </td>
+      <td> <%= @truck.vehicle_type %> </td>
+      <td> <%= display_date(@truck.acquired) %> </td>
+    </tr>
+  </tbody>
+</table>
+<table>
+  <thead>
+    <tr>
+      <th>Video status</th>
+      <th>In cab camera</th>
+      <th>Rear camera</th>
+      <th>Passenger side camera</th>
+      <th>DVR</th>
+      <th>Temp status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td> <%= @truck.video_status %> </td>
+      <td> <%= human_boolean(@truck.camera1) %> </td>
+      <td> <%= human_boolean(@truck.camera2) %> </td>
+      <td> <%= human_boolean(@truck.camera3) %> </td>
+      <td> <%= human_boolean(@truck.dvr) %> </td>
+      <td> <%= @truck.temp_status %> </td>
+    </tr>
+  </tbody>
+</table>
+<table>
+  <thead>
+    <tr>
+      <th>Install company</th>
+      <th>Location</th>
+      <th>Install</th>
+      <th>Notes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td> <%= @truck.install_company  %> </td>
+      <td> <%= @truck.location  %> </td>
+      <td> <%= display_date(@truck.install) %> </td>
+      <td> <%= @truck.notes %> </td>
+    </tr>
+  </tbody>
+</table>
+<table>
+  <thead>
+    <tr>
+      <th>Deinstall</th>
+      <th>Disposed</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td> <%= display_date(@truck.deinstall) %> </td>
+      <td> <%= display_date(@truck.disposed) %> </td>
+    </tr>
+  </tbody>
+</table>
+
+<%= link_to 'Edit', edit_truck_path(@truck) %>
+<%= link_to 'Index', trucks_path %>
