@@ -1,0 +1,2 @@
+class TruckLog < ApplicationRecord
+end

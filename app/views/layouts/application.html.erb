@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>TruckMonitoring</title>
+    <title>TruckManagement</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="turbolinks-cache-control" content="no-cache">
     <%= csrf_meta_tags %>
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
@@ -10,11 +11,13 @@
   </head>
 
   <body>
-    <div style="position: fixed; top: 0px; width: 100%; height: 8em; background-color: white; z-index: 100;">
-      <%= render 'layouts/header' %>
-    </div>
-    <div style="margin-top: 8.5em;">
-      <%= yield %>
+    <div class="global">
+      <div style="position: fixed; top: 0px; width: 100%; height: 4em; background-color: white; z-index: 100;">
+        <%= render 'layouts/header' %>
+      </div>
+      <div style="margin-top: 7.5em;">
+        <%= yield %>
+      </div>
     </div>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>

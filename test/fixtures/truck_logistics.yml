@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  reg_expires: 2019-06-26
+  pre_pass: MyString
+  service_type: MyString
+  hut_expires: 2019-06-26
+  ifta_expires: 2019-06-26
+  medallion_expires: 2019-06-26
+
+two:
+  reg_expires: 2019-06-26
+  pre_pass: MyString
+  service_type: MyString
+  hut_expires: 2019-06-26
+  ifta_expires: 2019-06-26
+  medallion_expires: 2019-06-26

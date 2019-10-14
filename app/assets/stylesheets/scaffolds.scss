@@ -1,7 +1,7 @@
 body {
   background-color: #fff;
   color: #333;
-  margin: 33px;
+  margin: 3px;
   font-family: verdana, arial, helvetica, sans-serif;
   font-size: 13px;
   line-height: 18px;
@@ -64,6 +64,9 @@ div {
 
 .title {
   text-align: center;
+  float: left;
+  margin-left: 4em;
+  margin-right: 3em;
 }
 
 .primary-logo {
@@ -73,6 +76,10 @@ div {
   float: left;
   position: relative;
   background: image-url("/assets/DArtagnan_Logo_2015_CMYK_mini.jpg");
+}
+
+#customer {
+  margin-left: 1em;
 }
 
 #notice {
@@ -131,14 +138,46 @@ label {
 }
 
 #navbar span {
-  list-style-type: none;
-  margin-right: 3em;
-  padding: 0;
-  overflow: hidden;
-  float: right;
-  display: block;
+  float: left;
+  margin-right: 1em;
+}
+.dropbtn {
+  background-color: white;
   color: black;
+  border: 2px solid black;
+  border-radius: 4px;
+  padding: 5px 5px;
   text-align: center;
-  padding: 1em 1em 1em 0em;
   text-decoration: none;
+  display: inline-block;
+  float: left;
+  display: inline-block;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    min-width: 45px;
+    z-index: 1;
+}
+
+.dropdown-content span {
+    color: black;
+    text-decoration: none;
+    display: block;
+}
+
+/* .dropdown-content span:hover {background-color: rgb(255,255,102)} */
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.global {
+  margin-left: 1em;
 }

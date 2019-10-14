@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  truck_id: 1
+  service_in: 2019-05-30
+  service_out: 2019-05-30
+  service_status: false
+  out_reason: MyString
+  maint_date: 2019-05-30
+
+two:
+  truck_id: 1
+  service_in: 2019-05-30
+  service_out: 2019-05-30
+  service_status: false
+  out_reason: MyString
+  maint_date: 2019-05-30

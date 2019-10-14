@@ -1,0 +1,11 @@
+<h1>Editing Truck Logistic</h1>
+<h2>Truck Number: <%= @truck.truck_number %> Last Updated: <%= display_date(@truck_logistic.updated_at) %> By: <%= @truck_logistic.user_id%></h2>
+
+<%= render 'form', truck_logistic: @truck_logistic %>
+
+<%= link_to 'Show', truck_truck_logistic_path(@truck, @truck_logistic), data:{confirm: 'Are you sure? Any changes will not be saved!'} %>
+<% if @truck.start_decommission %>
+  <%= link_to 'Truck Index', trucks_decomm_path, data:{confirm: 'Are you sure? Any changes will not be saved!'} %>
+<% else %>
+  <%= link_to 'Truck Index', trucks_path, data:{confirm: 'Are you sure? Any changes will not be saved!'} %>
+<% end %>

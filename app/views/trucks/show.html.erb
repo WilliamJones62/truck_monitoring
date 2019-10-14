@@ -1,76 +1,72 @@
 <p id="notice"><%= notice %></p>
 <h1>Showing Truck</h1>
+<h2>Last Updated: <%= display_date(@truck.updated_at) %> By: <%= @truck.user_id%></h2>
 
-<table>
-  <thead>
-    <tr>
-      <th>Truck ID</th>
-      <th>Vehicle type</th>
-      <th>Acquired</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td> <%= @truck.truck_id  %> </td>
-      <td> <%= @truck.vehicle_type %> </td>
-      <td> <%= display_date(@truck.acquired) %> </td>
-    </tr>
-  </tbody>
-</table>
-<table>
-  <thead>
-    <tr>
-      <th>Video status</th>
-      <th>In cab camera</th>
-      <th>Rear camera</th>
-      <th>Passenger side camera</th>
-      <th>DVR</th>
-      <th>Temp status</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td> <%= @truck.video_status %> </td>
-      <td> <%= human_boolean(@truck.camera1) %> </td>
-      <td> <%= human_boolean(@truck.camera2) %> </td>
-      <td> <%= human_boolean(@truck.camera3) %> </td>
-      <td> <%= human_boolean(@truck.dvr) %> </td>
-      <td> <%= @truck.temp_status %> </td>
-    </tr>
-  </tbody>
-</table>
-<table>
-  <thead>
-    <tr>
-      <th>Install company</th>
-      <th>Location</th>
-      <th>Install</th>
-      <th>Notes</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td> <%= @truck.install_company  %> </td>
-      <td> <%= @truck.location  %> </td>
-      <td> <%= display_date(@truck.install) %> </td>
-      <td> <%= @truck.notes %> </td>
-    </tr>
-  </tbody>
-</table>
-<table>
-  <thead>
-    <tr>
-      <th>Deinstall</th>
-      <th>Disposed</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td> <%= display_date(@truck.deinstall) %> </td>
-      <td> <%= display_date(@truck.disposed) %> </td>
-    </tr>
-  </tbody>
-</table>
+<% if @truck.start_decommission.blank? %>
+  <table>
+    <thead>
+      <tr>
+        <th>Truck number</th>
+        <th>Vehicle type</th>
+        <th>Vehicle year</th>
+        <th>Make/Model</th>
+        <th>VIN</th>
+        <th>License plate</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td> <%= @truck.truck_number  %> </td>
+        <td> <%= @truck.vehicle_type %> </td>
+        <td> <%= @truck.vehicle_year %> </td>
+        <td> <%= @truck.make_model %> </td>
+        <td> <%= @truck.vin %> </td>
+        <td> <%= @truck.license %> </td>
+      </tr>
+    </tbody>
+  </table>
+  <table>
+    <thead>
+      <tr>
+        <th>Registered to</th>
+        <th>Start mileage</th>
+        <th>Location</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td> <%= @truck.registered_to %> </td>
+        <td> <%= @truck.start_mileage %> </td>
+        <td> <%= @truck.location  %> </td>
+      </tr>
+    </tbody>
+  </table>
+<% else %>
+  <table>
+    <thead>
+      <tr>
+        <th> Disposed </th>
+        <th> Start decommission </th>
+        <th> Decommission_complete </th>
+        <th> Truck active </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td> <%= display_date(@truck.disposed) %> </td>
+        <td> <%= yes_boolean(@truck.start_decommission) %> </td>
+        <td> <%= yes_boolean(@truck.decommission_complete) %> </td>
+        <td> <%= yes_boolean(@truck.truck_active) %> </td>
+      </tr>
+    </tbody>
+  </table>
+<% end %>
 
-<%= link_to 'Edit', edit_truck_path(@truck) %>
-<%= link_to 'Index', trucks_path %>
+<% if (@manager && @dept == "LOGISTICS") || @user == 'ADMIN' %>
+  <%= link_to 'Edit', edit_truck_path(@truck) %>
+<% end %>
+<% if @truck.start_decommission %>
+  <%= link_to 'Index',  controller: "trucks", action: "decomm" %>
+<% else %>
+  <%= link_to 'Index', trucks_path %>
+<% end %>

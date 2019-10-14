@@ -1,0 +1,7 @@
+<h1>Editing Truck Repair</h1>
+<h2>Truck Number: <%= @truck.truck_number %> Last Updated: <%= display_date(@truck_repair.updated_at) %> By: <%= @truck_repair.user_id%></h2>
+
+<%= render 'form', truck_repair: @truck_repair %>
+
+<%= link_to 'Show', truck_truck_repair_path(@truck, @truck_repair), data:{confirm: 'Are you sure? Any changes will not be saved!'} %>
+<%= link_to 'Back', truck_truck_repairs_path(@truck), data:{confirm: 'Are you sure? Any changes will not be saved!'} %>

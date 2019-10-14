@@ -1,0 +1,2 @@
+module TruckMaintenancesHelper
+end

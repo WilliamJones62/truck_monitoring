@@ -1,0 +1,25 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  video_status: MyString
+  temp_status: MyString
+  camera1: false
+  camera2: false
+  camera3: false
+  dvr: false
+  install: 2019-06-26
+  install_company: MyString
+  notes: MyText
+  temp_verified: false
+
+two:
+  video_status: MyString
+  temp_status: MyString
+  camera1: false
+  camera2: false
+  camera3: false
+  dvr: false
+  install: 2019-06-26
+  install_company: MyString
+  notes: MyText
+  temp_verified: false

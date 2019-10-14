@@ -1,34 +1,106 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Trucks</h1>
+<h1>Truck activations</h1>
 
 <table id="normal_dt"  class="stripe" class="mytable" class="display" cellspacing="0" >
   <thead>
     <tr>
       <th>Truck</th>
       <th>Type</th>
-      <th>Acquired</th>
-      <th>Install</th>
-      <th>Deinstall</th>
-      <th>Disposed</th>
       <th>Show</th>
-      <th>Edit</th>
-      <th>Delete</th>
+      <% if (@manager && @dept == "LOGISTICS") || @user == 'ADMIN' %>
+        <th>Edit</th>
+        <th>Delete</th>
+      <% end %>
+      <% if @dept == "LOGISTICS" || @user == 'ADMIN' %>
+        <th>Logistics</th>
+        <th>Status</th>
+        <th>Maintenance</th>
+        <th>Status</th>
+        <th>Repair</th>
+      <% end %>
+      <% if @dept == "FINANCE" || @user == 'ADMIN' || (@dept == "LOGISTICS" && @manager) %>
+        <th>Finance</th>
+        <th>Status</th>
+      <% end %>
+      <% if @dept == "IT" || @user == 'ADMIN' || (@dept == "LOGISTICS" && @manager) %>
+        <th>IT</th>
+        <th>Status</th>
+      <% end %>
+      <% if @dept == "FINANCE" || @dept == "LOGISTICS" || @user == 'ADMIN' %>
+        <th>Accidents</th>
+      <% end %>
+      <th>In Service?</th>
     </tr>
   </thead>
 
   <tbody>
     <% @trucks.each do |truck| %>
       <tr>
-        <td><%= truck.truck_id %></td>
+        <td><%= truck.truck_number %></td>
         <td><%= truck.vehicle_type %></td>
-        <td> <%= display_date(truck.acquired) %> </td>
-        <td> <%= display_date(truck.install) %> </td>
-        <td> <%= display_date(truck.deinstall) %> </td>
-        <td> <%= display_date(truck.disposed) %> </td>
         <td><%= link_to 'Show', truck %></td>
-        <td><%= link_to 'Edit', edit_truck_path(truck) %></td>
-        <td><%= link_to 'Delete', truck, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% if (@manager && @dept == "LOGISTICS") || @user == 'ADMIN' %>
+          <td><%= link_to 'Edit', edit_truck_path(truck) %></td>
+          <td><%= link_to 'Delete', truck, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% end %>
+        <% if @dept == "LOGISTICS" || @user == 'ADMIN' %>
+          <% if truck.truck_logistics.count == 0 %>
+            <td><%= link_to 'Logistics', new_truck_truck_logistic_path(truck) %></td>
+            <td> Incomplete </td>
+          <% else %>
+            <td><%= link_to 'Logistics', edit_truck_truck_logistic_path(truck, truck.truck_logistics.first) %></td>
+            <td> <%= status_boolean(truck.truck_logistics.first.page_complete) %> </td>
+          <% end %>
+          <% if truck.truck_maintenances.count == 0 %>
+            <td><%= link_to 'Maintenance', new_truck_truck_maintenance_path(truck) %></td>
+            <td> Incomplete </td>
+          <% else %>
+            <td><%= link_to 'Maintenance', edit_truck_truck_maintenance_path(truck, truck.truck_maintenances.first) %></td>
+            <td> Complete </td>
+          <% end %>
+          <% link3 = '/trucks/' + truck.id.to_s + '/truck_repairs' %>
+          <td><%= link_to 'Repair', link3 %></td>
+        <% end %>
+        <% if @dept == "FINANCE" || @user == 'ADMIN' || (@dept == "LOGISTICS" && @manager) %>
+          <% if truck.truck_finances.count == 0 %>
+            <% if @dept == "LOGISTICS" %>
+              <td> Finance </td>
+            <% else %>
+              <td><%= link_to 'Finance', new_truck_truck_finance_path(truck) %></td>
+            <% end %>
+            <td> Incomplete </td>
+          <% else %>
+            <% if @dept == "LOGISTICS" %>
+              <td> Finance </td>
+            <% else %>
+              <td><%= link_to 'Finance', edit_truck_truck_finance_path(truck, truck.truck_finances.first) %></td>
+            <% end %>
+            <td> <%= status_boolean(truck.truck_finances.first.page_complete) %> </td>
+          <% end %>
+        <% end %>
+        <% if @dept == "IT" || @user == 'ADMIN' || (@dept == "LOGISTICS" && @manager) %>
+          <% if truck.truck_its.count == 0 %>
+            <% if @dept == "LOGISTICS" %>
+              <td> IT </td>
+            <% else %>
+              <td><%= link_to 'Monitoring', new_truck_truck_it_path(truck) %></td>
+            <% end %>
+            <td> Incomplete </td>
+          <% else %>
+            <% if @dept == "LOGISTICS" %>
+              <td> Monitoring </td>
+            <% else %>
+              <td><%= link_to 'Monitoring', edit_truck_truck_it_path(truck, truck.truck_its.first) %></td>
+            <% end %>
+            <td> <%= status_boolean(truck.truck_its.first.page_complete) %> </td>
+          <% end %>
+        <% end %>
+        <% if @dept == "LOGISTICS" || @dept == "FINANCE" || @user == 'ADMIN' %>
+          <% link = '/trucks/' + truck.id.to_s + '/truck_accidents' %>
+          <td><%= link_to 'Accidents', link %></td>
+        <% end %>
+        <td> <%= yes_boolean(truck.truck_active) %> </td>
       </tr>
     <% end %>
   </tbody>
@@ -36,4 +108,10 @@
 
 <br>
 
-<%= link_to 'New Truck', new_truck_path %>
+<% if (@manager && @dept == "LOGISTICS") || @user == 'ADMIN' %>
+  <%= link_to 'New Truck', new_truck_path %>
+<% end %>
+
+<% if @user == "ADMIN" %>
+  <%= link_to 'CSV download', trucks_path(format: "csv") %>
+<% end %>

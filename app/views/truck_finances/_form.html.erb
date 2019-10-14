@@ -1,0 +1,132 @@
+<%= form_with(model: truck_finance, url: [@truck, @truck_finance], local: true) do |form| %>
+  <% if truck_finance.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(truck_finance.errors.count, "error") %> prohibited this truck_finance from being saved:</h2>
+
+      <ul>
+      <% truck_finance.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <% if @truck.start_decommission.blank? %>
+    <table>
+      <thead>
+        <tr>
+          <th> <%= form.label :ins_expires, "Date insured" %> </th>
+          <th> <%= form.label :wexcard %> </th>
+          <th> <%= form.label :wex_start %> </th>
+          <th> <%= form.label :wex_end %> </th>
+          <th> <%= form.label :ez_pass, "EZ pass" %> </th>
+          <th> <%= form.label :ezstart, "EZ start" %> </th>
+          <th> <%= form.label :ezend, "EZ end" %> </th>
+          <th hidden> <%= form.label :user_id %> </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td> <%= form.date_field :ins_expires %> </td>
+          <td> <%= form.text_field :wexcard  %> </td>
+          <td> <%= form.date_field :wex_start %> </td>
+          <td> <%= form.date_field :wex_end %> </td>
+          <td> <%= form.text_field :ez_pass  %> </td>
+          <td> <%= form.date_field :ezstart %> </td>
+          <td> <%= form.date_field :ezend %> </td>
+          <td hidden> <%= form.text_field :user_id, :value => @user  %> </td>
+        </tr>
+      </tbody>
+    </table>
+    <table>
+      <thead>
+        <tr>
+          <th> <%= form.label :contract_type %> </th>
+          <th> <%= form.label :contract_start %> </th>
+          <th> <%= form.label :contract_end %> </th>
+          <th> <%= form.label :flat_rate %> </th>
+          <th> <%= form.label :mile_rate %> </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td> <%= form.select :contract_type, @contract_type, {}, {:value => params[:truck_finance_contract_type]} %> </td>
+          <td> <%= form.date_field :contract_start %> </td>
+          <td> <%= form.date_field :contract_end %> </td>
+          <td> <%= form.number_field :flat_rate, id: :truck_finance_flat_rate, min: 0, step: 0.01 %> </td>
+          <td> <%= form.number_field :mile_rate, id: :truck_finance_mile_rate, min: 0, step: 0.0001 %> </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <% if @manager %>
+      <table>
+        <thead>
+          <tr>
+            <th> <%= form.label :page_complete %> </th>
+        </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td> <%= form.check_box :page_complete, id: :truck_finance_page_complete %> </td>
+          </tr>
+        </tbody>
+      </table>
+    <% end %>
+
+    <h3>Attachments</h3>
+    <%= form.fields_for :finance_attachments do |image| %>
+      <div class="field">
+        <%= image.text_field :title, readonly: true %>
+        <%= image.file_field :image, :value => ' ' %>
+        <% if image.object.image? %>
+          <%= image_tag image.object.image.thumb.url %>
+        <% end %>
+      </div>
+    <% end %>
+    <h3>Documents</h3>
+    <%= form.fields_for :finance_documents do |document| %>
+      <div class="field">
+        <%= document.text_field :title, readonly: true %>
+        <%= document.file_field :document, :value => ' ' %>
+      </div>
+    <% end %>
+  <% else %>
+    <table>
+      <thead>
+        <tr>
+          <th> <%= form.label :wexcard_return %> </th>
+          <th> <%= form.label :ezpass_return, 'EZpass return' %> </th>
+          <th> <%= form.label :insurance_cancelled %> </th>
+          <th hidden> <%= form.label :user_id %> </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td> <%= form.date_field :wexcard_return, id: :truck_finance_wexcard_return %> </td>
+          <td> <%= form.date_field :ezpass_return, id: :truck_finance_ezpass_return %> </td>
+          <td> <%= form.date_field :insurance_cancelled, id: :truck_finance_insurance_cancelled %> </td>
+          <td hidden> <%= form.text_field :user_id, :value => @user  %> </td>
+        </tr>
+      </tbody>
+    </table>
+    <% if @manager %>
+      <table>
+        <thead>
+          <tr>
+            <th> <%= form.label :decommissioned %> </th>
+        </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td> <%= form.check_box :decommissioned, id: :truck_finance_decommissioned %> </td>
+          </tr>
+        </tbody>
+      </table>
+    <% end %>
+
+  <% end %>
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

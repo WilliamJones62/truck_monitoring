@@ -1,0 +1,60 @@
+<%= form_with(model: truck_maintenance, url: [@truck, @truck_maintenance], local: true) do |form| %>
+  <% if truck_maintenance.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(truck_maintenance.errors.count, "error") %> prohibited this truck_maintenance from being saved:</h2>
+
+      <ul>
+      <% truck_maintenance.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <table>
+    <thead>
+      <tr>
+        <th hidden> <%= form.label :user_id %> </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td hidden> <%= form.text_field :user_id, :value => @user  %> </td>
+      </tr>
+    </tbody>
+  </table>
+
+
+  <h3>Services</h3>
+  <% i = 1 %>
+  <%= form.fields_for :maintenance_schedules do |p| %>
+    <table>
+    <% if i == 1 %>
+      <thead>
+          <tr>
+              <th> <%= p.label :scheduled_date %> </th>
+              <th> <%= p.label :maint_type, 'Type' %> </th>
+              <th> <%= p.label :mileage %> </th>
+              <th> <%= p.label :actual_date %> </th>
+              <th> <%= p.label :service_out, 'Out of service date' %> </th>
+              <th> <%= p.label :service_in, 'In service date' %> </th>
+          </tr>
+        </thead>
+        <% i = 2 %>
+      <% end %>
+      <tbody>
+          <tr>
+            <td> <%= p.date_field :scheduled_date, readonly: true %> </td>
+            <td> <%= p.text_field :maint_type, readonly: true %> </td>
+            <td> <%= p.number_field :mileage, min: 0, step: 1 %> </td>
+            <td> <%= p.date_field :actual_date %> </td>
+            <td> <%= p.date_field :service_out %> </td>
+            <td> <%= p.date_field :service_in %> </td>
+          </tr>
+      </tbody>
+    </table>
+  <% end %>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

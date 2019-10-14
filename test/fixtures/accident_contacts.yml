@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  accident_id: 1
+  company: MyString
+  contact_name: MyString
+  contact_date: 2019-05-30
+  contact_time: 2019-05-30 11:31:18
+  contact_type: MyString
+  contact_details: MyText
+
+two:
+  accident_id: 1
+  company: MyString
+  contact_name: MyString
+  contact_date: 2019-05-30
+  contact_time: 2019-05-30 11:31:18
+  contact_type: MyString
+  contact_details: MyText

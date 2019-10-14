@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  truck_maintenance_id: 1
+  scheduled_date: 2019-06-06
+  actual_date: 2019-06-06
+
+two:
+  truck_maintenance_id: 1
+  scheduled_date: 2019-06-06
+  actual_date: 2019-06-06

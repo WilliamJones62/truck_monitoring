@@ -1,0 +1,6 @@
+<h1>New Truck Logistic</h1>
+<h2>Truck Number: <%= @truck.truck_number %></h2>
+
+<%= render 'form', truck_logistic: @truck_logistic %>
+
+<%= link_to 'Truck Index', trucks_path, data:{confirm: 'Are you sure? Any changes will not be saved!'} %>

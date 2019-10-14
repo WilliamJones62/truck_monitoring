@@ -1,0 +1,82 @@
+<p id="notice"><%= notice %></p>
+<h2>Truck Number: <%= @truck.truck_number %> Last Updated: <%= display_date(@truck_repair.updated_at) %> By: <%= @truck_repair.user_id%></h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>In service</th>
+      <th>Out of service</th>
+      <th>Status</th>
+      <th>Details</th>
+      <th>Repair date</th>
+      <th>Repair type</th>
+      <th>Repair estimate</th>
+      <th>Final Cost</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td> <%= display_date(@truck_repair.service_in) %> </td>
+      <td> <%= display_date(@truck_repair.service_out) %> </td>
+      <td> <%= service_boolean(@truck_repair.service_status) %> </td>
+      <td> <%= @truck_repair.out_reason %> </td>
+      <td> <%= display_date(@truck_repair.maint_date) %> </td>
+      <td> <%= @truck_repair.repair_type %> </td>
+      <td> <%= @truck_repair.repair_estimate %> </td>
+      <td> <%= @truck_repair.costs %> </td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>Vendor Contact History</h3>
+<table id="normal_dt"  class="stripe" class="mytable" class="display" cellspacing="0" >
+  <thead>
+    <tr>
+      <th hidden> contact date </th>
+      <th> D'Artagnan employee </th>
+      <th> Company </th>
+      <th> Name </th>
+      <th> Date </th>
+      <th> Time </th>
+      <th> Contact type </th>
+      <th> Details </th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @truck_repair.repair_contacts.each do |c| %>
+    <tr>
+      <td hidden> <%= c.contact_date %> </td>
+      <td> <%= c.employee %> </td>
+      <td> <%= c.company %> </td>
+      <td> <%= c.contact_name %> </td>
+      <td> <%= display_date(c.contact_date) %> </td>
+      <td> <%= display_time(c.contact_time) %> </td>
+      <td> <%= c.contact_type %> </td>
+      <td> <%= c.contact_details %> </td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<h3>Attachments</h3>
+<table id="listtab"  class="stripe" class="mytable" class="display" cellspacing="0" >
+  <thead>
+    <tr>
+      <th>Attachment</th>
+      <th>Show</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @truck_repair.repair_attachments.each do |c| %>
+      <% if !c.image.blank? %>
+      <tr>
+        <td><%= image_tag c.image.thumb.url %></td>
+        <td><%= link_to 'Show',  controller: "truck_repairs", action: "showimage", id: c %></td>
+      </tr>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to 'Edit', edit_truck_truck_repair_path(@truck, @truck_repair) %>
+<%= link_to 'Back', truck_truck_repairs_path(@truck) %>

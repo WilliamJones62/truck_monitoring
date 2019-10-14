@@ -1,6 +1,10 @@
 <h1>Editing Truck</h1>
+<h2>Last Updated: <%= display_date(@truck.updated_at) %> By: <%= @truck.user_id%></h2>
 
 <%= render 'form', truck: @truck %>
 
-<%= link_to 'Show', @truck %>
-<%= link_to 'Index', trucks_path %>
+<% if @truck.start_decommission %>
+  <%= link_to 'Index', trucks_decomm_path, data:{confirm: 'Are you sure? Any changes will not be saved!'} %>
+<% else %>
+  <%= link_to 'Index', trucks_path, data:{confirm: 'Are you sure? Any changes will not be saved!'} %>
+<% end %>

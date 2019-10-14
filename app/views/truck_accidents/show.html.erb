@@ -1,0 +1,148 @@
+<p id="notice"><%= notice %></p>
+<h2>Truck Number: <%= @truck.truck_number %> Last Updated: <%= display_date(@truck_accident.updated_at) %> By: <%= @truck_accident.user_id%></h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Accident date</th>
+      <th>Accident time</th>
+      <th>Driver</th>
+      <th>Route</th>
+      <th>Accident address</th>
+      <th>Accident detail</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td> <%= display_date(@truck_accident.accident_date) %> </td>
+      <td> <%= display_time(@truck_accident.accident_time) %> </td>
+      <td> <%= @truck_accident.driver %> </td>
+      <td> <%= @truck_accident.route %> </td>
+      <td> <%= @truck_accident.location %> </td>
+      <td> <%= @truck_accident.accident_detail %> </td>
+    </tr>
+  </tbody>
+</table>
+<table>
+  <thead>
+    <tr>
+      <th>Claim?</th>
+      <th>Claim number</th>
+      <th>Claim date</th>
+      <th>Injury?</th>
+      <th>Dot recordable?</th>
+      <th>Towed?</th>
+      <th>Report filed?</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td> <%= yes_boolean(@truck_accident.claim) %> </td>
+      <td> <%= @truck_accident.claim_number %> </td>
+      <td> <%= display_date(@truck_accident.claim_date) %> </td>
+      <td> <%= yes_boolean(@truck_accident.injury) %> </td>
+      <td> <%= yes_boolean(@truck_accident.dot_recordable) %> </td>
+      <td> <%= yes_boolean(@truck_accident.towed) %> </td>
+      <td> <%= yes_boolean(@truck_accident.report_filed) %> </td>
+    </tr>
+  </tbody>
+</table>
+<table>
+  <thead>
+    <tr>
+      <th>Damage estimate</th>
+      <th>Final cost</th>
+      <th>Claim status</th>
+      <th>Close date</th>
+      <th>Recovery amount</th>
+      <th>Reserve amount</th>
+      <th>Reserve date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td> <%= @truck_accident.damage_estimate %> </td>
+      <td> <%= @truck_accident.costs %> </td>
+      <td> <%= @truck_accident.claim_status %> </td>
+      <td> <%= display_date(@truck_accident.close_date) %> </td>
+      <td> <%= @truck_accident.recovery_amt %> </td>
+      <td> <%= @truck_accident.reserve_amt %> </td>
+      <td> <%= display_date(@truck_accident.reserve_date) %> </td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>Contact History</h3>
+<table id="normal_dt"  class="stripe" class="mytable" class="display" cellspacing="0" >
+  <thead>
+    <tr>
+      <th hidden> contact date </th>
+      <th> D'Artagnan employee </th>
+      <th> Company </th>
+      <th> Name </th>
+      <th> Date </th>
+      <th> Time </th>
+      <th> Contact type </th>
+      <th> Details </th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @truck_accident.accident_contacts.each do |c| %>
+    <tr>
+      <td hidden> <%= c.contact_date %> </td>
+      <td> <%= c.employee %> </td>
+      <td> <%= c.company %> </td>
+      <td> <%= c.contact_name %> </td>
+      <td> <%= display_date(c.contact_date) %> </td>
+      <td> <%= display_time(c.contact_time) %> </td>
+      <td> <%= c.contact_type %> </td>
+      <td> <%= c.contact_details %> </td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<h3>Attachments</h3>
+<table id="listtab"  class="stripe" class="mytable" class="display" cellspacing="0" >
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Attachment</th>
+      <th>Show</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @truck_accident.accident_attachments.each do |c| %>
+      <% if !c.image.blank? %>
+      <tr>
+        <td><%= c.title %></td>
+        <td><%= image_tag c.image.thumb.url %></td>
+        <td><%= link_to 'Show',  controller: "truck_accidents", action: "showimage", id: c %></td>
+      </tr>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>
+
+<h3>Videos</h3>
+<table id="listtab"  class="stripe" class="mytable" class="display" cellspacing="0" >
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Video</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @truck_accident.accident_videos.each do |c| %>
+      <% if !c.video.blank? %>
+      <tr>
+        <td><%= c.title %></td>
+        <td><%= video_tag c.video_url, controls: true, size: "160x120" %></td>
+      </tr>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to 'Edit', edit_truck_truck_accident_path(@truck, @truck_accident) %>
+<%= link_to 'Back', truck_truck_accidents_path(@truck) %>

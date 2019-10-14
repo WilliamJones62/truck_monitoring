@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  flat_rate: 9.99
+  mile_rate: 9.99
+  ins_expires: 2019-06-26
+  wexcard: MyString
+  ez_pass: MyString
+  contract_type: MyString
+  contract_start: 2019-06-26
+  contract_end: 2019-06-26
+  user_id: MyString
+
+two:
+  flat_rate: 9.99
+  mile_rate: 9.99
+  ins_expires: 2019-06-26
+  wexcard: MyString
+  ez_pass: MyString
+  contract_type: MyString
+  contract_start: 2019-06-26
+  contract_end: 2019-06-26
+  user_id: MyString

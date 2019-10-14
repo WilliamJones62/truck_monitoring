@@ -1,0 +1,83 @@
+<p id="notice"><%= notice %></p>
+<h2>Truck Number: <%= @truck.truck_number %> Last Updated: <%= display_date(@truck_logistic.updated_at) %> By: <%= @truck_logistic.user_id%></h2>
+
+<% if @truck.start_decommission.blank? %>
+  <table>
+    <thead>
+      <tr>
+        <th>Registration expires</th>
+        <th>HUT expires</th>
+        <th>IFTA expires</th>
+        <th>Medallion expires</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td> <%= display_date(@truck_logistic.reg_expires) %> </td>
+        <td> <%= display_date(@truck_logistic.hut_expires) %> </td>
+        <td> <%= display_date(@truck_logistic.ifta_expires) %> </td>
+        <td> <%= display_date(@truck_logistic.medallion_expires) %> </td>
+      </tr>
+    </tbody>
+  </table>
+  <table>
+    <thead>
+      <tr>
+        <th>Pre pass</th>
+        <th>Service type</th>
+        <th>Date into Roadnet</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td> <%= @truck_logistic.pre_pass %> </td>
+        <td> <%= @truck_logistic.service_type  %> </td>
+        <td> <%= display_date(@truck_logistic.roadnet) %> </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>Attachments</h3>
+  <table id="listtab"  class="stripe" class="mytable" class="display" cellspacing="0" >
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Attachment</th>
+        <th>Show</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @truck_logistic.logistic_attachments.each do |c| %>
+        <% if !c.image.blank? %>
+        <tr>
+          <td><%= c.title %></td>
+          <td><%= image_tag c.image.thumb.url %></td>
+          <td><%= link_to 'Show',  controller: "truck_logistics", action: "showimage", id: c %></td>
+        </tr>
+        <% end %>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <table>
+    <thead>
+      <tr>
+        <th> Out of Roadnet </th>
+        <th> Out of Pre-pass </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td> <%= @truck_logistic.out_roadnet %> </td>
+        <td> <%= @truck_logistic.out_pre_pass %> </td>
+      </tr>
+    </tbody>
+  </table>
+<% end %>
+
+<%= link_to 'Edit', edit_truck_truck_logistic_path(@truck, @truck_logistic) %>
+<% if @truck.start_decommission %>
+  <%= link_to 'Truck Index',  controller: "trucks", action: "decomm" %>
+<% else %>
+  <%= link_to 'Truck Index', trucks_path %>
+<% end %>

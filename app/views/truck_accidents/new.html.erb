@@ -1,0 +1,6 @@
+<h1>Insured Truck Accident</h1>
+<h2>Truck Number: <%= @truck.truck_number %></h2>
+
+<%= render 'form', truck_accident: @truck_accident %>
+
+<%= link_to 'Back', truck_truck_accidents_path(@truck), data:{confirm: 'Are you sure? Any changes will not be saved!'} %>

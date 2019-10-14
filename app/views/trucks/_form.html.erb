@@ -11,77 +11,73 @@
     </div>
   <% end %>
 
-  <table>
-    <thead>
-      <tr>
-        <th> <%= form.label :truck_id %> </th>
-        <th> <%= form.label :vehicle_type %> </th>
-        <th> <%= form.label :acquired %> </th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td> <%= form.text_field :truck_id  %> </td>
-        <td> <%= form.select :vehicle_type, @type, {}, {:value => params[:trucks_vehicle_type]} %> </td>
-        <td> <%= form.date_field :acquired %> </td>
-      </tr>
-    </tbody>
-  </table>
-  <table>
-    <thead>
-      <tr>
-        <th> <%= form.label :video_status %> </th>
-        <th> <%= form.label :camera1, "In cab camera" %> </th>
-        <th> <%= form.label :camera2, "Rear camera" %> </th>
-        <th> <%= form.label :camera3, "Passenger side camera" %> </th>
-        <th> <%= form.label :dvr, "DVR" %> </th>
-        <th> <%= form.label :temp_status %> </th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td> <%= form.select :video_status, @status, {}, {:value => params[:trucks_video_status]} %> </td>
-        <td> <%= form.check_box :camera1 %> </td>
-        <td> <%= form.check_box :camera2 %> </td>
-        <td> <%= form.check_box :camera3 %> </td>
-        <td> <%= form.check_box :dvr %> </td>
-        <td> <%= form.select :temp_status, @status, {}, {:value => params[:trucks_temp_status]} %> </td>
-      </tr>
-    </tbody>
-  </table>
-  <table>
-    <thead>
-      <tr>
-        <th> <%= form.label :install_company %> </th>
-        <th> <%= form.label :location %> </th>
-        <th> <%= form.label :install %> </th>
-        <th> <%= form.label :notes %> </th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td> <%= form.text_field :install_company  %> </td>
-        <td> <%= form.text_field :location  %> </td>
-        <td> <%= form.date_field :install %> </td>
-        <td> <%= form.text_area :notes %> </td>
-      </tr>
-    </tbody>
-  </table>
-  <table>
-    <thead>
-      <tr>
-        <th> <%= form.label :deinstall %> </th>
-        <th> <%= form.label :disposed %> </th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td> <%= form.date_field :deinstall %> </td>
-        <td> <%= form.date_field :disposed %> </td>
-      </tr>
-    </tbody>
-  </table>
-
+  <% if @truck.start_decommission.blank? %>
+    <table>
+      <thead>
+        <tr>
+          <th> <%= form.label :truck_number %> </th>
+          <th> <%= form.label :vehicle_type %> </th>
+          <th> <%= form.label :vehicle_year %> </th>
+          <th> <%= form.label :make_model %> </th>
+          <th> <%= form.label :vin, "VIN" %> </th>
+          <th> <%= form.label :license, "License plate" %> </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td> <%= form.text_field :truck_number  %> </td>
+          <td> <%= form.select :vehicle_type, @type, {}, {:value => params[:trucks_vehicle_type]} %> </td>
+          <td> <%= form.number_field :vehicle_year, id: :truck_vehicle_year, in: 2015...2040 %> </td>
+          <td> <%= form.text_field :make_model  %> </td>
+          <td> <%= form.text_field :vin  %> </td>
+          <td> <%= form.text_field :license  %> </td>
+        </tr>
+      </tbody>
+    </table>
+    <table>
+      <thead>
+        <tr>
+          <th> <%= form.label :registered_to %> </th>
+          <th> <%= form.label :start_mileage %> </th>
+          <th> <%= form.label :location %> </th>
+          <th> <%= form.label :truck_active %> </th>
+          <th> <%= form.label :start_decommission %> </th>
+          <th hidden> <%= form.label :user_id %> </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td> <%= form.select :registered_to, @registered_to, {}, {:value => params[:trucks_registered_to]} %> </td>
+          <td> <%= form.number_field :start_mileage, id: :truck_start_mileage, min: 0, step: 1 %> </td>
+          <td> <%= form.select :location, @location, {}, {:value => params[:trucks_location]} %> </td>
+          <td> <%= form.check_box :truck_active, id: :truck_truck_active %> </td>
+          <td> <%= form.check_box :start_decommission, id: :truck_start_decommission %> </td>
+          <td hidden> <%= form.text_field :user_id, :value => @user  %> </td>
+        </tr>
+      </tbody>
+    </table>
+  <% else %>
+    <table>
+      <thead>
+        <tr>
+          <th> <%= form.label :disposed %> </th>
+          <th> <%= form.label :start_decommission %> </th>
+          <th> <%= form.label :decommission_complete %> </th>
+          <th> <%= form.label :truck_active %> </th>
+          <th hidden> <%= form.label :user_id %> </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td> <%= form.date_field :disposed, id: :truck_disposed %> </td>
+          <td> <%= form.check_box :start_decommission, id: :truck_start_decommission %> </td>
+          <td> <%= form.check_box :decommission_complete, id: :truck_decommission_complete %> </td>
+          <td> <%= form.check_box :truck_active, id: :truck_truck_active %> </td>
+          <td hidden> <%= form.text_field :user_id, :value => @user  %> </td>
+        </tr>
+      </tbody>
+    </table>
+  <% end %>
   <div class="actions">
     <%= form.submit %>
   </div>

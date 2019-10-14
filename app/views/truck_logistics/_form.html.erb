@@ -1,0 +1,113 @@
+<%= form_with(model: truck_logistic, url: [@truck, @truck_logistic], local: true) do |form| %>
+  <% if truck_logistic.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(truck_logistic.errors.count, "error") %> prohibited this truck_logistic from being saved:</h2>
+
+      <ul>
+      <% truck_logistic.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <% if @truck.start_decommission.blank? %>
+    <table>
+      <thead>
+        <tr>
+          <th> <%= form.label :reg_expires, "Registration expires" %> </th>
+          <th> <%= form.label :hut_expires, "HUT expires" %> </th>
+          <th> <%= form.label :ifta_expires, "IFTA expires" %> </th>
+          <th> <%= form.label :medallion_expires %> </th>
+          <th hidden> <%= form.label :user_id %> </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td> <%= form.date_field :reg_expires %> </td>
+          <td> <%= form.date_field :hut_expires %> </td>
+          <td> <%= form.date_field :ifta_expires %> </td>
+          <td> <%= form.date_field :medallion_expires %> </td>
+          <td hidden> <%= form.text_field :user_id, :value => @user  %> </td>
+        </tr>
+      </tbody>
+    </table>
+    <table>
+      <thead>
+        <tr>
+          <th> <%= form.label :pre_pass %> </th>
+          <th> <%= form.label :service_type %> </th>
+          <th> <%= form.label :roadnet, "Date into Roadnet" %> </th>
+      </thead>
+      <tbody>
+        <tr>
+          <td> <%= form.text_field :pre_pass  %> </td>
+          <td> <%= form.select :service_type, @service_type, {}, {:value => params[:trucks_service_type]} %> </td>
+          <td> <%= form.date_field :roadnet %> </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <% if @manager %>
+      <table>
+        <thead>
+          <tr>
+            <th> <%= form.label :page_complete %> </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td> <%= form.check_box :page_complete, id: :truck_logistic_page_complete %> </td>
+          </tr>
+        </tbody>
+      </table>
+    <% end %>
+
+    <h3>Attachments</h3>
+    <%= form.fields_for :logistic_attachments do |image| %>
+      <div class="field">
+        <%= image.text_field :title, readonly: true %>
+        <%= image.file_field :image%>
+        <% if image.object.image? %>
+          <%= image_tag image.object.image.thumb.url %>
+        <% end %>
+      </div>
+    <% end %>
+  <% else %>
+    <table>
+      <thead>
+        <tr>
+          <th> <%= form.label :out_roadnet, 'Out of Roadnet' %> </th>
+          <th> <%= form.label :out_pre_pass, 'Out of Pre-pass' %> </th>
+          <th hidden> <%= form.label :user_id %> </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td> <%= form.date_field :out_roadnet, id: :truck_logistic_out_roadnet %> </td>
+          <td> <%= form.date_field :out_pre_pass, id: :truck_logistic_out_pre_pass %> </td>
+          <td hidden> <%= form.text_field :user_id, :value => @user  %> </td>
+        </tr>
+      </tbody>
+    </table>
+    <% if @manager %>
+      <table>
+        <thead>
+          <tr>
+            <th> <%= form.label :decommissioned %> </th>
+        </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td> <%= form.check_box :decommissioned, id: :truck_logistic_decommissioned %> </td>
+          </tr>
+        </tbody>
+      </table>
+    <% end %>
+
+  <% end %>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

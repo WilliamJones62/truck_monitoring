@@ -1,0 +1,170 @@
+<%= form_with(model: truck_accident, url: [@truck, @truck_accident], local: true) do |form| %>
+  <% if truck_accident.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(truck_accident.errors.count, "error") %> prohibited this truck_accident from being saved:</h2>
+
+      <ul>
+      <% truck_accident.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <table>
+    <thead>
+      <tr>
+        <th> <%= form.label :accident_date %> </th>
+        <th> <%= form.label :accident_time %> </th>
+        <th> <%= form.label :driver %> </th>
+        <th> <%= form.label :route %> </th>
+        <th> <%= form.label :location, 'Address of accident' %> </th>
+        <th> <%= form.label :accident_detail %> </th>
+        <th hidden> <%= form.label :user_id %> </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <% if @dept == "LOGISTICS" || @user == 'ADMIN' %>
+          <td> <%= form.date_field :accident_date, id: :truck_accident_accident_date %> </td>
+          <td> <%= form.time_field :accident_time, id: :truck_accident_accident_time %> </td>
+          <td> <%= form.text_field :driver, id: :truck_accident_driver %> </td>
+          <td> <%= form.text_field :route, id: :truck_accident_route %> </td>
+          <td> <%= form.text_field :location, id: :truck_accident_location %> </td>
+          <td> <%= form.text_area :accident_detail, id: :truck_accident_accident_detail %> </td>
+        <% else %>
+          <td> <%= display_date(@truck_accident.accident_date) %> </td>
+          <td> <%= display_time(@truck_accident.accident_time) %> </td>
+          <td> <%= @truck_accident.driver %> </td>
+          <td> <%= @truck_accident.route %> </td>
+          <td> <%= @truck_accident.location %> </td>
+          <td> <%= @truck_accident.accident_detail %> </td>
+        <% end %>
+        <td hidden> <%= form.text_field :user_id, :value => @user  %> </td>
+      </tr>
+    </tbody>
+  </table>
+  <table>
+    <thead>
+      <tr>
+        <th> <%= form.label :claim %> </th>
+        <th> <%= form.label :claim_number %> </th>
+        <th> <%= form.label :claim_date %> </th>
+        <th> <%= form.label :injury %> </th>
+        <th> <%= form.label :dot_recordable %> </th>
+        <th> <%= form.label :towed %> </th>
+        <th> <%= form.label :report_filed %> </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <% if @dept == "FINANCE" || @user == 'ADMIN' %>
+          <td> <%= form.check_box :claim, id: :truck_accident_claim %> </td>
+          <td> <%= form.text_field :claim_number, id: :truck_claim_number %> </td>
+          <td> <%= form.date_field :claim_date, id: :truck_accident_claim_date %> </td>
+          <td> <%= form.check_box :injury, id: :truck_accident_injury %> </td>
+          <td> <%= form.check_box :dot_recordable, id: :truck_accident_dot_recordable %> </td>
+          <td> <%= form.check_box :towed, id: :truck_accident_towed %> </td>
+          <td> <%= form.check_box :report_filed, id: :truck_accident_report_filed %> </td>
+        <% else %>
+          <td> <%= yes_boolean(@truck_accident.claim) %> </td>
+          <td> <%= @truck_accident.claim_number %> </td>
+          <td> <%= display_date(@truck_accident.claim_date) %> </td>
+          <td> <%= yes_boolean(@truck_accident.injury) %> </td>
+          <td> <%= yes_boolean(@truck_accident.dot_recordable) %> </td>
+          <td> <%= yes_boolean(@truck_accident.towed) %> </td>
+          <td> <%= yes_boolean(@truck_accident.report_filed) %> </td>
+        <% end %>
+      </tr>
+    </tbody>
+  </table>
+  <table>
+    <thead>
+      <tr>
+        <th> <%= form.label :damage_estimate %> </th>
+        <th> <%= form.label :costs, 'Final cost' %> </th>
+        <th> <%= form.label :claim_status %> </th>
+        <th> <%= form.label :close_date %> </th>
+        <th> <%= form.label :recovery_amt, "Recovery amount" %> </th>
+        <th> <%= form.label :reserve_amt, "Reserve amount" %> </th>
+        <th> <%= form.label :reserve_date %> </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <% if @dept == "FINANCE" || @user == 'ADMIN' %>
+          <td> <%= form.number_field :damage_estimate, id: :truck_accident_damage_estimate, min: 0, step: 0.01 %> </td>
+          <td> <%= form.number_field :costs, id: :truck_accident_costs, min: 0, step: 0.01 %> </td>
+          <td> <%= form.select :claim_status, @claim_status, {}, {:value => params[:trucks_claim_status]} %> </td>
+          <td> <%= form.date_field :close_date, id: :truck_accident_close_date %> </td>
+          <td> <%= form.number_field :recovery_amt, id: :truck_accident_recovery_amt, min: 0, step: 0.01 %> </td>
+          <td> <%= form.number_field :reserve_amt, id: :truck_accident_reserve_amt, min: 0, step: 0.01 %> </td>
+          <td> <%= form.date_field :reserve_date, id: :truck_accident_reserve_date %> </td>
+        <% else %>
+          <td> <%= @truck_accident.damage_estimate %> </td>
+          <td> <%= @truck_accident.costs %> </td>
+          <td> <%= @truck_accident.claim_status %> </td>
+          <td> <%= display_date(@truck_accident.close_date) %> </td>
+          <td> <%= @truck_accident.recovery_amt %> </td>
+          <td> <%= @truck_accident.reserve_amt %> </td>
+          <td> <%= display_date(@truck_accident.reserve_date) %> </td>
+        <% end %>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>Contact History</h3>
+  <% i = 1 %>
+  <%= form.fields_for :accident_contacts do |p| %>
+  <table>
+    <% if i == 1 %>
+      <thead>
+        <tr>
+          <th> <%= p.label :employee, "D'Artagnan employee" %> </th>
+          <th> <%= p.label :company %> </th>
+          <th> <%= p.label :contact_name, 'Name' %> </th>
+          <th> <%= p.label :contact_date, 'Date' %> </th>
+          <th> <%= p.label :contact_time, 'Time' %> </th>
+          <th> <%= p.label :contact_type %> </th>
+          <th> <%= p.label :contact_details %> </th>
+        </tr>
+      </thead>
+      <% i = 2 %>
+    <% end %>
+      <tbody>
+        <tr>
+          <td> <%= p.text_field :employee %> </td>
+          <td> <%= p.text_field :company %> </td>
+          <td> <%= p.text_field :contact_name %> </td>
+          <td> <%= p.date_field :contact_date %> </td>
+          <td> <%= p.time_field :contact_time %> </td>
+          <td> <%= p.select :contact_type, @contact_type %> </td>
+          <td> <%= p.text_area :contact_details, size: "20x4" %> </td>
+        </tr>
+    </tbody>
+  </table>
+  <% end %>
+
+  <h3>Attachments</h3>
+  <%= form.fields_for :accident_attachments do |image| %>
+    <div class="field">
+      <%= image.text_field :title, readonly: true %>
+      <%= image.file_field :image, :value => ' ' %>
+      <% if image.object.image? %>
+        <%= image_tag image.object.image.thumb.url %>
+      <% end %>
+    </div>
+  <% end %>
+
+  <h3>Videos</h3>
+  <%= form.fields_for :accident_videos do |video| %>
+    <div class="field">
+      <%= video.text_field :title, readonly: true %>
+      <%= video.file_field :video, :value => ' ' %>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

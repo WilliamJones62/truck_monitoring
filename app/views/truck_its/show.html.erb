@@ -1,0 +1,67 @@
+<p id="notice"><%= notice %></p>
+<h2>Truck Number: <%= @truck.truck_number %> Last Updated: <%= display_date(@truck_it.updated_at) %> By: <%= @truck_it.user_id%></h2>
+
+<% if @truck.start_decommission.blank? %>
+  <table>
+    <thead>
+      <tr>
+        <th>Video status</th>
+        <th>In cab camera</th>
+        <th>Rear camera</th>
+        <th>Passenger side camera</th>
+        <th>DVR</th>
+        <th>Tablet</th>
+        <th>Temp status</th>
+        <th>Temp verified?</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td> <%= @truck_it.video_status %> </td>
+        <td> <%= active_boolean(@truck_it.camera1) %> </td>
+        <td> <%= active_boolean(@truck_it.camera2) %> </td>
+        <td> <%= active_boolean(@truck_it.camera3) %> </td>
+        <td> <%= active_boolean(@truck_it.dvr) %> </td>
+        <td> <%= active_boolean(@truck_it.tablet) %> </td>
+        <td> <%= @truck_it.temp_status %> </td>
+        <td> <%= yes_boolean(@truck_it.temp_verified) %> </td>
+      </tr>
+    </tbody>
+  </table>
+  <table>
+    <thead>
+      <tr>
+        <th>Install company</th>
+        <th>Install</th>
+        <th>Notes</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td> <%= @truck_it.install_company  %> </td>
+        <td> <%= display_date(@truck_it.install) %> </td>
+        <td> <%= @truck_it.notes %> </td>
+      </tr>
+    </tbody>
+  </table>
+<% else %>
+  <table>
+    <thead>
+      <tr>
+        <th> Equipment removed </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td> <%= @truck_it.equipment_removed %> </td>
+      </tr>
+    </tbody>
+  </table>
+<% end %>
+
+<%= link_to 'Edit', edit_truck_truck_it_path(@truck, @truck_it) %>
+<% if @truck.start_decommission %>
+  <%= link_to 'Truck Index',  controller: "trucks", action: "decomm" %>
+<% else %>
+  <%= link_to 'Truck Index', trucks_path %>
+<% end %>

@@ -1,12 +1,26 @@
 <h2 class="primary-logo">
 </h2>
-<nav class="">
-    <ul>
-        <span id="navbar">
-        </span>
-    </ul>
-</nav>
-<br>
-<h1 class="title">Truck Monitoring
+
+<span id="navbar">
+  <% if user_signed_in? %>
+    <span><a href="/">Home</a></span>
+    <span><%= link_to 'Password', edit_user_registration_path %></span>
+    <span><%= link_to 'Sign out', destroy_user_session_path, method: :delete %></span>
+    <% if current_user.email == 'admin' %>
+      <span><%= link_to 'Sign up', new_user_registration_path %></span>
+    <% end %>
+  <% else %>
+    <span><%= link_to 'Sign in', new_user_session_path %></span>
+  <% end %>
+</span>
+<h1 class="title">Truck Management
 </h1>
+<% if user_signed_in? %>
+  <span>Signed in as <%= current_user.email %></span>
+<% else %>
+  <span>No user currently signed in</span>
+<% end %>
+<%= content_tag(:div, flash[:error], :id => "flash_error") if flash[:error] %>
+<%= content_tag(:div, flash[:notice], :id => "flash_notice") if flash[:notice] %>
+<%= content_tag(:div, flash[:alert], :id => "flash_alert") if flash[:alert] %>
 <br>

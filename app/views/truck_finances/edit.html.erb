@@ -1,0 +1,11 @@
+<h1>Editing Truck Finance</h1>
+<h2>Truck Number: <%= @truck.truck_number %> Last Updated: <%= display_date(@truck_finance.updated_at) %> By: <%= @truck_finance.user_id%></h2>
+
+<%= render 'form', truck_finance: @truck_finance %>
+
+<%= link_to 'Show', truck_truck_finance_path(@truck, @truck_finance), data:{confirm: 'Are you sure? Any changes will not be saved!'}  %>
+<% if @truck.start_decommission %>
+  <%= link_to 'Truck Index', trucks_decomm_path, data:{confirm: 'Are you sure? Any changes will not be saved!'} %>
+<% else %>
+  <%= link_to 'Truck Index', trucks_path, data:{confirm: 'Are you sure? Any changes will not be saved!'} %>
+<% end %>

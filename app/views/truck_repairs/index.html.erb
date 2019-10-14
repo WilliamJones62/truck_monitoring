@@ -1,0 +1,32 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Truck Repairs</h1>
+<h2>Truck Number: <%= @truck.truck_number %></h2>
+
+<table id="normal_dt"  class="stripe" class="mytable" class="display" cellspacing="0" >
+  <thead>
+    <tr>
+      <th>Repair date</th>
+      <th>Show</th>
+      <th>Edit</th>
+      <th>Delete</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @truck_repairs.each do |truck_repair| %>
+      <tr>
+        <td> <%= display_date(truck_repair.maint_date) %> </td>
+        <td><%= link_to 'Show', truck_truck_repair_path(@truck, truck_repair) %></td>
+        <td><%= link_to 'Edit', edit_truck_truck_repair_path(@truck, truck_repair) %></td>
+        <td><%= link_to 'Delete', [@truck, truck_repair], method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Truck Repair', new_truck_truck_repair_path() %>
+
+<%= link_to 'Truck Index', trucks_path %>

@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  truck_accident_id: 1
+  video: MyString
+  title: MyString
+
+two:
+  truck_accident_id: 1
+  video: MyString
+  title: MyString

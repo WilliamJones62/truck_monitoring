@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  truck_finance_id: 1
+  document: MyString
+  title: MyString
+
+two:
+  truck_finance_id: 1
+  document: MyString
+  title: MyString

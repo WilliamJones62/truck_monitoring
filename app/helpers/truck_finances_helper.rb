@@ -1,0 +1,2 @@
+module TruckFinancesHelper
+end

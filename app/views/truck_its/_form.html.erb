@@ -1,0 +1,109 @@
+<%= form_with(model: truck_it, url: [@truck, @truck_it], local: true) do |form| %>
+  <% if truck_it.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(truck_it.errors.count, "error") %> prohibited this truck_it from being saved:</h2>
+
+      <ul>
+      <% truck_it.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <% if @truck.start_decommission.blank? %>
+    <table>
+      <thead>
+        <tr>
+          <th> <%= form.label :video_status %> </th>
+          <th> <%= form.label :camera1, "In cab camera" %> </th>
+          <th> <%= form.label :camera2, "Rear camera" %> </th>
+          <th> <%= form.label :camera3, "Passenger side camera" %> </th>
+          <th> <%= form.label :dvr, "DVR" %> </th>
+          <th> <%= form.label :tablet %> </th>
+          <th> <%= form.label :temp_status %> </th>
+          <th> <%= form.label :temp_verified, "Temp verified?" %> </th>
+          <th hidden> <%= form.label :user_id %> </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td> <%= form.select :video_status, @status, {}, {:value => params[:trucks_video_status]} %> </td>
+          <td> <%= form.check_box :camera1 %> </td>
+          <td> <%= form.check_box :camera2 %> </td>
+          <td> <%= form.check_box :camera3 %> </td>
+          <td> <%= form.check_box :dvr %> </td>
+          <td> <%= form.check_box :tablet %> </td>
+          <td> <%= form.select :temp_status, @status, {}, {:value => params[:trucks_temp_status]} %> </td>
+          <td> <%= form.check_box :temp_verified %> </td>
+          <td hidden> <%= form.text_field :user_id, :value => @user  %> </td>
+        </tr>
+      </tbody>
+    </table>
+    <table>
+      <thead>
+        <tr>
+          <th> <%= form.label :install_company %> </th>
+          <th> <%= form.label :install %> </th>
+          <th> <%= form.label :notes %> </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td> <%= form.text_field :install_company  %> </td>
+          <td> <%= form.date_field :install %> </td>
+          <td> <%= form.text_area :notes %> </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <% if @manager %>
+      <table>
+        <thead>
+          <tr>
+            <th> <%= form.label :page_complete %> </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td> <%= form.check_box :page_complete, id: :truck_it_page_complete %> </td>
+          </tr>
+        </tbody>
+      </table>
+    <% end %>
+  <% else %>
+    <table>
+      <thead>
+        <tr>
+          <th> <%= form.label :equipment_removed %> </th>
+          <th hidden> <%= form.label :user_id %> </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td> <%= form.date_field :equipment_removed, id: :truck_it_equipment_removed %> </td>
+          <td hidden> <%= form.text_field :user_id, :value => @user  %> </td>
+        </tr>
+      </tbody>
+    </table>
+    <% if @manager %>
+      <table>
+        <thead>
+          <tr>
+            <th> <%= form.label :decommissioned %> </th>
+        </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td> <%= form.check_box :decommissioned, id: :truck_it_decommissioned %> </td>
+          </tr>
+        </tbody>
+      </table>
+    <% end %>
+
+  <% end %>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

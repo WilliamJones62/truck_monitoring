@@ -22,4 +22,9 @@ test:
 
 production:
   <<: *default
-  database: db/production.sqlite3
+  adapter: sqlserver
+  database: e21Reporting
+  # dataserver: sqlserver01\reporting
+  dataserver: 10.0.0.215\reporting
+  username: intranet
+  password: Duck600it

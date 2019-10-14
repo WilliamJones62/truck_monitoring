@@ -1,0 +1,115 @@
+<p id="notice"><%= notice %></p>
+<h2>Truck Number: <%= @truck.truck_number %> Last Updated: <%= display_date(@truck_finance.updated_at) %> By: <%= @truck_finance.user_id%></h2>
+
+<% if @truck.start_decommission.blank? %>
+  <table>
+    <thead>
+      <tr>
+        <th>Date insured</th>
+        <th>Wexcard</th>
+        <th>Wex start</th>
+        <th>Wex end</th>
+        <th>EZ pass</th>
+        <th>EZ start</th>
+        <th>EZ end</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td> <%= display_date(@truck_finance.ins_expires) %> </td>
+        <td> <%= @truck_finance.wexcard %> </td>
+        <td> <%= display_date(@truck_finance.wex_start) %> </td>
+        <td> <%= display_date(@truck_finance.wex_end) %> </td>
+        <td> <%= @truck_finance.ez_pass %> </td>
+        <td> <%= display_date(@truck_finance.ezstart) %> </td>
+        <td> <%= display_date(@truck_finance.ezend) %> </td>
+      </tr>
+    </tbody>
+  </table>
+  <table>
+    <thead>
+      <tr>
+        <th>Contract type</th>
+        <th>Contract start</th>
+        <th>Contract end</th>
+        <th>Flat rate</th>
+        <th>Mile rate</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td> <%= @truck_finance.contract_type  %> </td>
+        <td> <%= display_date(@truck_finance.contract_start) %> </td>
+        <td> <%= display_date(@truck_finance.contract_end) %> </td>
+        <td> <%= @truck_finance.flat_rate  %> </td>
+        <td> <%= @truck_finance.mile_rate %> </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>Attachments</h3>
+  <table id="listtab"  class="stripe" class="mytable" class="display" cellspacing="0" >
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Attachment</th>
+        <th>Show</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @truck_finance.finance_attachments.each do |c| %>
+        <% if !c.image.blank? %>
+        <tr>
+          <td><%= c.title %></td>
+          <td><%= image_tag c.image.thumb.url %></td>
+          <td><%= link_to 'Show',  controller: "truck_finances", action: "showimage", id: c %></td>
+        </tr>
+        <% end %>
+      <% end %>
+    </tbody>
+  </table>
+
+  <h3>Documents</h3>
+  <table id="listtab"  class="stripe" class="mytable" class="display" cellspacing="0" >
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Document</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @truck_finance.finance_documents.each do |d| %>
+        <% if !d.document.blank? %>
+        <tr>
+          <td><%= d.title %></td>
+          <td><iframe src=<%= d.document %> width="600" height="780" style="border: none;"> </iframe></td>
+        </tr>
+        <% end %>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <table>
+    <thead>
+      <tr>
+        <th> Wexcard return </th>
+        <th> EZpass_return </th>
+        <th> Insurance cancelled </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td> <%= @truck_finance.wexcard_return %> </td>
+        <td> <%= @truck_finance.ezpass_return %> </td>
+        <td> <%= @truck_finance.insurance_cancelled %> </td>
+      </tr>
+    </tbody>
+  </table>
+<% end %>
+
+<%= link_to 'Edit', edit_truck_truck_finance_path(@truck, @truck_finance) %>
+<% if @truck.start_decommission %>
+  <%= link_to 'Truck Index',  controller: "trucks", action: "decomm" %>
+<% else %>
+  <%= link_to 'Truck Index', trucks_path %>
+<% end %>

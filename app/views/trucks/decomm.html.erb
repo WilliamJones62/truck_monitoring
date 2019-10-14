@@ -1,0 +1,70 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Truck decommissions</h1>
+
+<table id="normal_dt"  class="stripe" class="mytable" class="display" cellspacing="0" >
+  <thead>
+    <tr>
+      <th>Truck</th>
+      <th>Type</th>
+      <% if (@manager && @dept == "LOGISTICS") || @user == 'ADMIN' %>
+        <th>Edit</th>
+        <th>Delete</th>
+      <% end %>
+      <% if @dept == "LOGISTICS" || @user == 'ADMIN' %>
+        <th>Logistics</th>
+        <th>Status</th>
+      <% end %>
+      <% if @dept == "FINANCE" || @user == 'ADMIN' %>
+        <th>Finance</th>
+        <th>Status</th>
+      <% end %>
+      <% if @dept == "IT" || @user == 'ADMIN' %>
+        <th>IT</th>
+        <th>Status</th>
+      <% end %>
+      <th>Decommissioned?</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @trucks.each do |truck| %>
+      <tr>
+        <td><%= truck.truck_number %></td>
+        <td><%= truck.vehicle_type %></td>
+        <% if (@manager && @dept == "LOGISTICS") || @user == 'ADMIN' %>
+          <td><%= link_to 'Edit', edit_truck_path(truck) %></td>
+          <td><%= link_to 'Delete', truck, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% end %>
+        <% if @dept == "LOGISTICS" || @user == 'ADMIN' %>
+          <% if truck.truck_logistics.count == 0 %>
+            <td> No record </td>
+            <td>  </td>
+          <% else %>
+            <td><%= link_to 'Logistics', edit_truck_truck_logistic_path(truck, truck.truck_logistics.first) %></td>
+            <td> <%= status_boolean(truck.truck_logistics.first.decommissioned) %> </td>
+          <% end %>
+        <% end %>
+        <% if @dept == "FINANCE" || @user == 'ADMIN' %>
+          <% if truck.truck_finances.count == 0 %>
+            <td> No record </td>
+            <td>  </td>
+          <% else %>
+            <td><%= link_to 'Finance', edit_truck_truck_finance_path(truck, truck.truck_finances.first) %></td>
+            <td> <%= status_boolean(truck.truck_finances.first.decommissioned) %> </td>
+          <% end %>
+        <% end %>
+        <% if @dept == "IT" || @user == 'ADMIN' %>
+          <% if truck.truck_its.count == 0 %>
+            <td> No record </td>
+            <td>  </td>
+          <% else %>
+            <td><%= link_to 'Monitoring', edit_truck_truck_it_path(truck, truck.truck_its.first) %></td>
+            <td> <%= status_boolean(truck.truck_its.first.decommissioned) %> </td>
+          <% end %>
+        <% end %>
+        <td> <%= yes_boolean(truck.decommission_complete) %> </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

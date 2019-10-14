@@ -1,0 +1,105 @@
+<%= form_with(model: truck_repair, url: [@truck, @truck_repair], local: true) do |form| %>
+  <% if truck_repair.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(truck_repair.errors.count, "error") %> prohibited this truck_repair from being saved:</h2>
+
+      <ul>
+      <% truck_repair.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <table>
+    <thead>
+      <tr>
+        <% if !@new %>
+          <th> In service </th>
+          <th> Out of service </th>
+        <% end %>
+        <th> <%= form.label :service_status, 'Out of service?' %> </th>
+        <th> <%= form.label :out_reason, 'Details' %> </th>
+        <th> <%= form.label :maint_date, 'Repair date' %> </th>
+        <th> <%= form.label :repair_type %> </th>
+        <th> <%= form.label :repair_estimate %> </th>
+        <th> <%= form.label :costs, 'Final cost' %> </th>
+        <th hidden> <%= form.label :user_id %> </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <% if !@new %>
+          <td> <%= display_date(truck_repair.service_in) %> </td>
+          <td> <%= display_date(truck_repair.service_out) %> </td>
+        <% end %>
+        <td> <%= form.check_box :service_status, id: :truck_repair_service_status %> </td>
+        <td> <%= form.text_field :out_reason, id: :truck_repair_out_reason %> </td>
+        <td> <%= form.date_field :maint_date, id: :truck_repair_maint_date %> </td>
+        <td> <%= form.select :repair_type, @repair_type, {}, {:value => params[:trucks_repair_type]} %> </td>
+        <td> <%= form.number_field :repair_estimate, id: :truck_repair_repair_estimate, min: 0, step: 0.01 %> </td>
+        <td> <%= form.number_field :costs, id: :truck_repair_costs, min: 0, step: 0.01 %> </td>
+        <td hidden> <%= form.text_field :user_id, :value => @user  %> </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>Vendor Contact History</h3>
+  <% i = 1 %>
+  <%= form.fields_for :repair_contacts do |p| %>
+    <table>
+      <% if i == 1 %>
+        <thead>
+          <tr>
+            <th> <%= p.label :employee, "D'Artagnan employee" %> </th>
+            <th> <%= p.label :company %> </th>
+            <th> <%= p.label :contact_name, 'Name' %> </th>
+            <th> <%= p.label :contact_date, 'Date' %> </th>
+            <th> <%= p.label :contact_time, 'Time' %> </th>
+            <th> <%= p.label :contact_type %> </th>
+            <th> <%= p.label :contact_details %> </th>
+          </tr>
+        </thead>
+        <% i = 2 %>
+      <% end %>
+      <tbody>
+          <tr>
+            <td> <%= p.text_field :employee %> </td>
+            <td> <%= p.text_field :company %> </td>
+            <td> <%= p.text_field :contact_name %> </td>
+            <td> <%= p.date_field :contact_date %> </td>
+            <td> <%= p.time_field :contact_time %> </td>
+            <td> <%= p.select :contact_type, @contact_type %> </td>
+            <td> <%= p.text_area :contact_details, size: "20x4" %> </td>
+          </tr>
+      </tbody>
+    </table>
+  <% end %>
+
+  <h3>Attachments</h3>
+  <% i = 1 %>
+  <%= form.fields_for :repair_attachments do |image| %>
+    <table>
+        <thead>
+          <tr>
+            <th> <%= image.label :image %> </th>
+            <th> Thumbnail </th>
+          </tr>
+        </thead>
+      <tbody>
+          <tr>
+            <td> <%= image.file_field :image, :value => ' ' %> </td>
+            <% if image.object.image? %>
+              <td> <%= image_tag image.object.image.thumb.url %> </td>
+            <% else %>
+              <td></td>
+            <% end %>
+          </tr>
+      </tbody>
+    </table>
+  <% end %>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
