@@ -103,7 +103,7 @@ class TrucksController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def truck_params
-      params.require(:truck).permit(:truck_number, :vehicle_type, :video_status, :temp_status, :camera1, :camera2, :camera3, :dvr, :acquired, :disposed, :install, :deinstall, :install_company, :location, :notes, :vehicle_year, :make_model, :vin, :license, :flat_rate, :mile_rate, :registered_to, :service_start, :lease_end, :accident, :accident_driver, :insurance_claim, :temp_verified, :service_out, :truck_length, :reg_expires, :ins_expires, :wexcard, :ez_pass, :pre_pass, :out_reason, :maint_date, :service_flag, :contract_type, :contract_start, :contract_end, :service_type, :start_mileage, :hut_expires, :ifta_expires, :medalion_expires, :user_id, :truck_active, :start_decommission, :decommission_complete,
+      params.require(:truck).permit(:truck_number, :vehicle_type, :video_status, :temp_status, :camera1, :camera2, :camera3, :dvr, :acquired, :disposed, :install, :deinstall, :install_company, :location, :notes, :vehicle_year, :make_model, :vin, :license, :flat_rate, :mile_rate, :registered_to, :service_start, :lease_end, :accident, :accident_driver, :insurance_claim, :temp_verified, :service_out, :truck_length, :reg_expires, :ins_expires, :wexcard, :ez_pass, :pre_pass, :out_reason, :maint_date, :service_flag, :contract_type, :contract_start, :contract_end, :service_type, :start_mileage, :hut_expires, :ifta_expires, :medalion_expires, :user_id, :truck_active, :start_decommission, :decommission_complete, :notes,
         truck_attachments_attributes:
           [
             :id,

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190815200934) do
+ActiveRecord::Schema.define(version: 20191107134956) do
 
   create_table "accident_attachments", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -309,6 +309,7 @@ ActiveRecord::Schema.define(version: 20190815200934) do
     t.date "inactive_date"
     t.boolean "start_decommission"
     t.boolean "decommission_complete"
+    t.string "notes"
   end
 
   create_table "users", force: :cascade do |t|

@@ -42,6 +42,7 @@
           <th> <%= form.label :location %> </th>
           <th> <%= form.label :truck_active %> </th>
           <th> <%= form.label :start_decommission %> </th>
+          <th> <%= form.label :notes %> </th>
           <th hidden> <%= form.label :user_id %> </th>
         </tr>
       </thead>
@@ -52,6 +53,7 @@
           <td> <%= form.select :location, @location, {}, {:value => params[:trucks_location]} %> </td>
           <td> <%= form.check_box :truck_active, id: :truck_truck_active %> </td>
           <td> <%= form.check_box :start_decommission, id: :truck_start_decommission %> </td>
+          <td> <%= form.text_field :notes  %> </td>
           <td hidden> <%= form.text_field :user_id, :value => @user  %> </td>
         </tr>
       </tbody>
