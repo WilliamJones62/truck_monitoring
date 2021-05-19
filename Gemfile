@@ -11,7 +11,7 @@ gem 'sqlite3'
 gem "tiny_tds", '<=1.3.0'
 gem 'activerecord-sqlserver-adapter'
 # Use Puma as the app server
-gem 'puma', '~> 3.7'
+gem 'puma', '~> 4.3'
 # JQuery
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
